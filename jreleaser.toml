@@ -1,0 +1,32 @@
+[project]
+name = "pso-aspose"
+description = "ASPOSE processing API"
+tags = ["aspose", "pageseeder", "java", "docx", "ant"]
+authors = ["Carlos Cabral", "Christophe Lauret", "Jean-Baptiste Reure", "Philip Rutherford"]
+license = "Apache-2.0"
+inceptionYear = "2020"
+vendor = "Allette Systems"
+
+[project.links]
+homepage = "https://github.com/pageseeder/aspose"
+documentation = "https://dev.pageseeder.com"
+license = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+
+[project.languages.java]
+groupId = "org.pageseeder"
+
+[release.github]
+owner = "pageseeder"
+name = "aspose"
+username = "pageseeder"
+branch = "main"
+
+[signing]
+active = "ALWAYS"
+armored = true
+mode = "FILE"
+
+[deploy.maven.mavenCentral.sonatype]
+active = "ALWAYS"
+url = "https://central.sonatype.com/api/v1/publisher"
+stagingRepositories = ["build/staging-deploy"]
