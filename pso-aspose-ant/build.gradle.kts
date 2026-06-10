@@ -2,7 +2,8 @@ description = "ANT tasks and definition for ASPOSE API"
 
 dependencies {
     implementation(libs.aspose.words.cloud)
-    implementation(libs.gson)
+    implementation(libs.okio)
+    implementation(libs.jmail)
     compileOnly(libs.ant)
 
     testImplementation(libs.ant)

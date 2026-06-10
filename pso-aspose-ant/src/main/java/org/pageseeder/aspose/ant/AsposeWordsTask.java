@@ -3,10 +3,10 @@
  */
 package org.pageseeder.aspose.ant;
 
+import jakarta.mail.MessagingException;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
-import javax.mail.MessagingException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -143,6 +143,7 @@ public final class AsposeWordsTask extends Task {
     log("Converting DOCX " + this.source.getName() + " to PDF " + this.destination.getName());
 
     ApiClient apiClient = new ApiClient(this.clientId, this.clientSecret, this.baseUrl);
+    apiClient.setReadTimeout(1200_000); // 20 minutes
     WordsApi wordsApi = new WordsApi(apiClient);
     try {
       byte[] requestDocument = Files.readAllBytes(this.source.toPath());
@@ -150,7 +151,7 @@ public final class AsposeWordsTask extends Task {
       if (this.updateFields) {
         String temp_result = temp_folder + "/" + this.source.getName();
         UpdateFieldsOnlineRequest request = new UpdateFieldsOnlineRequest(requestDocument,
-            null, null, null, temp_result);
+            null, null, null, false, temp_result);
         UpdateFieldsOnlineResponse result = wordsApi.updateFieldsOnline(request);
         requestDocument = result.getDocument().get(temp_result);
       }
@@ -161,7 +162,7 @@ public final class AsposeWordsTask extends Task {
       outlineOptions.headingsOutlineLevels(6);
       requestSaveOptionsData.outlineOptions(outlineOptions);
       SaveAsOnlineRequest request = new SaveAsOnlineRequest(requestDocument,
-          requestSaveOptionsData,null, null,null,null);
+          requestSaveOptionsData,null, null,null,false, null);
       SaveAsOnlineResponse result = wordsApi.saveAsOnline(request);
       Files.write(this.destination.toPath(),result.getDocument().get(temp_result));
     } catch (IOException | MessagingException | ApiException ex) {
