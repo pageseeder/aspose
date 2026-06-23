@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.versions)
     alias(libs.plugins.sonar)
     alias(libs.plugins.jreleaser)
+    alias(libs.plugins.shadow)
     id("java-library")
     id("maven-publish")
 }
