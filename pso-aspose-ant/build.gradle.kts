@@ -20,6 +20,12 @@ val shadowPrefix = "org.pageseeder.aspose.shadow"
 tasks.shadowJar {
     archiveClassifier.set("standalone")
     mergeServiceFiles()
+    exclude("META-INF/LICENSE.*")
+    exclude("META-INF/NOTICE.*")
+    exclude("META-INF/license.*")
+    from(rootProject.file("LICENSE")) {
+        into("META-INF")
+    }
     relocate("com.aspose.words.cloud", "$shadowPrefix.com.aspose.words.cloud")
     relocate("com.google.gson", "$shadowPrefix.com.google.gson")
     relocate("com.squareup.okhttp", "$shadowPrefix.com.squareup.okhttp")
