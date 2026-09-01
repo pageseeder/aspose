@@ -64,6 +64,11 @@ subprojects {
         publications {
             create<MavenPublication>("maven") {
                 from(components["java"])
+                plugins.withId("com.gradleup.shadow") {
+                    artifact(tasks.named("shadowJar")) {
+                        classifier = "standalone"
+                    }
+                }
                 pom {
                     name.set(title)
                     description.set(provider { project.description ?: "" })
